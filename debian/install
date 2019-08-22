@@ -1,0 +1,2 @@
+moxa-ublox-config-utils /sbin
+moxa-ublox-config-utils.conf /etc/moxa-configs

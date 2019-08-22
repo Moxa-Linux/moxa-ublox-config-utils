@@ -1,0 +1,12 @@
+[Unit]
+Description=Initial Mode Configuration Tool for Ublox modules in MOXA platforms
+After=moxa-cellular-utils
+
+[Service]
+Type=forking
+WorkingDirectory=/home/moxa
+ExecStart=/sbin/moxa-ublox-config-utils
+RemainAfterExist=yes
+
+[Install]
+WantedBy=multi-user.target
