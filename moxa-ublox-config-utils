@@ -1,0 +1,106 @@
+#!/bin/bash
+SUPPORTING_MODULE_LIST="L210|L280|L201"
+# RNDIS:1 ECM:2
+USB_ETH_MODE=2
+# Router:1 Bridge:2
+NETWORKING_MODE=2
+WAITCOUNT=20
+CONFIG_PATH="/etc/moxa-configs/moxa-ublox-l2xx.conf"
+
+load_config() {
+	local mode=""
+	source "${CONFIG_PATH}"
+	if [ -n "${UBLOX_USB_ETH_MODE}" ]; then
+		USB_ETH_MODE=${UBLOX_USB_ETH_MODE}
+	fi
+	if [ -n "${UBLOX_NETWORKING_MODE}" ]; then
+		NETWORKING_MODE=${UBLOX_NETWORKING_MODE}
+	fi
+	if [ -n "${UBLOX_WAITCOUNT}" ]; then
+		WAITCOUNT=${UBLOX_WAITCOUNT}
+	fi
+	echo "Use mode: ${USB_ETH_MODE},${NETWORKING_MODE}"
+}
+
+switch_mode() {
+	local mode=""
+	local s_mode=""
+	local rndis_opt=""
+	local need_reset=0
+
+	mode=$(cell_mgmt at "AT+UUSBCONF?" | grep -i "^+UUSBCONF:" | cut -d ',' -f 1 | cut -d ' ' -f 2)
+	case "${USB_ETH_MODE}" in
+	1)
+		s_mode="3"
+	;;
+	2)
+		s_mode="2"
+	;;
+	esac
+
+	if [ "${s_mode}" = "3" ]; then
+		# Disable RNDIS optimization which would cause the
+		# low throughput in linux platform under RNDIS mode.
+		rndis_opt=$(cell_mgmt at "AT+UDCONF=67" | grep '^+UDCONF' | cut -d ',' -f 2)
+		if [ "${rndis_opt}" = "1" ]; then
+			cell_mgmt at "AT+UDCONF=67,0"
+			need_reset=1
+		fi
+	fi
+
+	if [ "${s_mode}" != "${mode}" ]; then
+		cell_mgmt at "AT+UUSBCONF=${s_mode}"
+		need_reset=1
+	fi
+
+	mode=$(cell_mgmt at "AT+UBMCONF?" | grep -i "^+UBMCONF:" | cut -d ' ' -f 2)
+	case "${NETWORKING_MODE}" in
+	1)
+		s_mode="1"
+	;;
+	2)
+		s_mode="2"
+	;;
+	esac
+
+	if [ "${s_mode}" != "${mode}" ]; then
+		cell_mgmt at "AT+UBMCONF=${s_mode}"
+		need_reset=1
+	fi
+
+	if [ ${need_reset} -eq 1 ]; then
+		cell_mgmt at "AT+CFUN=16"
+	fi
+
+	sleep 3
+	wait_back
+}
+
+wait_back() {
+	local timeout
+	timeout=${WAITCOUNT}
+	while ((timeout--)); do
+		if cell_mgmt at "AT" | grep -q "OK"; then
+			break;
+		fi
+		sleep 3
+	done
+}
+
+check_module() {
+	if ! cell_mgmt at "ATI" | grep -q -E "${SUPPORTING_MODULE_LIST}"; then
+		exit 1
+	fi
+}
+
+main() {
+	wait_back
+	check_module
+	load_config
+	switch_mode
+	return 0
+}
+
+main "${@}"
+
+exit 0
