@@ -5,7 +5,7 @@ USB_ETH_MODE=2
 # Router:1 Bridge:2
 NETWORKING_MODE=2
 WAITCOUNT=20
-CONFIG_PATH="/etc/moxa-configs/moxa-ublox-l2xx.conf"
+CONFIG_PATH="/etc/moxa-configs/moxa-ublox-config-utils.conf"
 
 load_config() {
 	local mode=""
