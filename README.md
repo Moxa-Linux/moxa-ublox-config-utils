@@ -1,2 +1,2 @@
-# moxa-ublox-l2xx-config
+# moxa-ublox-config-utils
 
