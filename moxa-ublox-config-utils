@@ -99,7 +99,7 @@ switch_mode() {
 		cell_mgmt at "AT+CFUN=16"
 	fi
 
-	sleep 3
+	sleep 5
 	wait_back
 }
 
