@@ -7,6 +7,24 @@ NETWORKING_MODE=2
 WAITCOUNT=20
 CONFIG_PATH="/etc/moxa-configs/moxa-ublox-config-utils.conf"
 
+trap exit_func EXIT
+
+exit_func() {
+	local ret=${?}
+	case $ret in
+	1)
+		echo "Module does not match supporting list. Exit."
+		exit 0
+	;;
+	2)
+		echo "Module does not configure properly. Please restart the service"
+	;;
+	*)
+	;;
+	esac
+	exit ${ret}
+}
+
 load_config() {
 	local mode=""
 	source "${CONFIG_PATH}"
@@ -43,14 +61,20 @@ switch_mode() {
 		# low throughput in linux platform under RNDIS mode.
 		rndis_opt=$(cell_mgmt at "AT+UDCONF=67" | grep '^+UDCONF' | cut -d ',' -f 2)
 		if [ "${rndis_opt}" = "1" ]; then
-			cell_mgmt at "AT+UDCONF=67,0"
-			need_reset=1
+			if at_retry "AT+UDCONF=67,0"; then
+				need_reset=1
+			else
+				exit 2
+			fi
 		fi
 	fi
 
 	if [ "${s_mode}" != "${mode}" ]; then
-		cell_mgmt at "AT+UUSBCONF=${s_mode}"
-		need_reset=1
+		if at_retry "AT+UUSBCONF=${s_mode}"; then
+			need_reset=1
+		else
+			exit 2
+		fi
 	fi
 
 	mode=$(cell_mgmt at "AT+UBMCONF?" | grep -i "^+UBMCONF:" | cut -d ' ' -f 2)
@@ -64,15 +88,18 @@ switch_mode() {
 	esac
 
 	if [ "${s_mode}" != "${mode}" ]; then
-		cell_mgmt at "AT+UBMCONF=${s_mode}"
-		need_reset=1
+		if at_retry "AT+UBMCONF=${s_mode}"; then
+			need_reset=1
+		else
+			exit 2
+		fi
 	fi
 
 	if [ ${need_reset} -eq 1 ]; then
 		cell_mgmt at "AT+CFUN=16"
 	fi
 
-	sleep 3
+	sleep 5
 	wait_back
 }
 
@@ -91,6 +118,19 @@ check_module() {
 	if ! cell_mgmt at "ATI" | grep -q -E "${SUPPORTING_MODULE_LIST}"; then
 		exit 1
 	fi
+}
+
+at_retry() {
+	local retry=3
+	local cmd="${1}"
+	while ((retry --)); do
+		if cell_mgmt at "${cmd}" | grep -q "^OK"; then
+			break
+		else
+			return 1
+		fi
+	done
+	return 0
 }
 
 main() {
