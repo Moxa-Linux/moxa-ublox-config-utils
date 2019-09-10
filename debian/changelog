@@ -1,3 +1,9 @@
+moxa-ublox-config-utils (1.0.2) unstable; urgency=medium
+
+  * fix: correct the property RemainAfterExit
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Tue, 10 Sep 2019 19:02:19 +0800
+
 moxa-ublox-config-utils (1.0.1) unstable; urgency=medium
 
   * fix: need more time for the module enter reset process
