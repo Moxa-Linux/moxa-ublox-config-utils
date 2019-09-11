@@ -6,7 +6,7 @@ After=moxa-cellular-utils
 Type=forking
 WorkingDirectory=/home/moxa
 ExecStart=/sbin/moxa-ublox-config-utils
-RemainAfterExist=yes
+RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
