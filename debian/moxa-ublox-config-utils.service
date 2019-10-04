@@ -1,6 +1,6 @@
 [Unit]
 Description=Initial Mode Configuration Tool for Ublox modules in MOXA platforms
-After=moxa-cellular-utils
+After=moxa-cellular-utils.service
 
 [Service]
 Type=forking
