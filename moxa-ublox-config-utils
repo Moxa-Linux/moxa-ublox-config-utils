@@ -125,12 +125,12 @@ at_retry() {
 	local cmd="${1}"
 	while ((retry --)); do
 		if cell_mgmt at "${cmd}" | grep -q "^OK"; then
-			break
+			return 0
 		else
-			return 1
+			sleep 3
 		fi
 	done
-	return 0
+	return 1
 }
 
 main() {
