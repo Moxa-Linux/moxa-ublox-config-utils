@@ -56,16 +56,14 @@ switch_mode() {
 	;;
 	esac
 
-	if [ "${s_mode}" = "3" ]; then
-		# Disable RNDIS optimization which would cause the
-		# low throughput in linux platform under RNDIS mode.
-		rndis_opt=$(cell_mgmt at "AT+UDCONF=67" | grep '^+UDCONF' | cut -d ',' -f 2)
-		if [ "${rndis_opt}" = "1" ]; then
-			if at_retry "AT+UDCONF=67,0"; then
-				need_reset=1
-			else
-				exit 2
-			fi
+	# Disable RNDIS optimization which would cause the
+	# low throughput in linux platform under RNDIS mode.
+	rndis_opt=$(cell_mgmt at "AT+UDCONF=67" | grep '^+UDCONF' | cut -d ',' -f 2)
+	if [ "${rndis_opt}" = "1" ]; then
+		if at_retry "AT+UDCONF=67,0"; then
+			need_reset=1
+		else
+			exit 2
 		fi
 	fi
 
