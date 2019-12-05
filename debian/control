@@ -11,3 +11,9 @@ Architecture: all
 Depends: ${misc:Depends},
          moxa-cellular-utils
 Description: initial the mode of the ublox Toby L2 series module
+
+Package: moxa-ublox-config-utils-mm
+Architecture: all
+Depends: ${misc:Depends},
+         modemmanager (>=1.10.0-moxa1)
+Description: initial the mode of the ublox Toby L2 series module via mmcli
