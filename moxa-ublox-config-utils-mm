@@ -26,12 +26,21 @@ exit_func() {
 load_config() {
 	local mode=""
 	source "${CONFIG_PATH}"
-	if [ -n "${UBLOX_USB_ETH_MODE}" ]; then
+
+	mode="UBLOX_USB_ETH_MODE_${MODULE_NAME##*-}"
+	if [ -n "${!mode}" ]; then
+		USB_ETH_MODE=${!mode}
+	elif [ -n "${UBLOX_USB_ETH_MODE}" ]; then
 		USB_ETH_MODE=${UBLOX_USB_ETH_MODE}
 	fi
-	if [ -n "${UBLOX_NETWORKING_MODE}" ]; then
+
+	mode="UBLOX_NETWORKING_MODE_${MODULE_NAME##*-}"
+	if [ -n "${!mode}" ]; then
+		NETWORKING_MODE=${!mode}
+	elif [ -n "${UBLOX_NETWORKING_MODE}" ]; then
 		NETWORKING_MODE=${UBLOX_NETWORKING_MODE}
 	fi
+
 	if [ -n "${UBLOX_WAITCOUNT}" ]; then
 		WAITCOUNT=${UBLOX_WAITCOUNT}
 	fi
