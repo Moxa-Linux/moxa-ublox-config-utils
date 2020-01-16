@@ -1,0 +1,13 @@
+Source: moxa-ublox-config-utils
+Section: utils
+Priority: optional
+Maintainer: Fero JD Zhou <FeroJD.Zhou@moxa.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.1.2
+Homepage: http://www.moxa.com/
+
+Package: moxa-ublox-config-utils
+Architecture: all
+Depends: ${misc:Depends},
+         moxa-cellular-utils
+Description: initial the mode of the ublox Toby L2 series module

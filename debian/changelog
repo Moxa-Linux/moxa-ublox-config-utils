@@ -1,0 +1,24 @@
+moxa-ublox-config-utils (1.0.3) unstable; urgency=medium
+
+  * fix: correct the dependency service name
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Fri, 04 Oct 2019 17:09:27 +0800
+
+moxa-ublox-config-utils (1.0.2) unstable; urgency=medium
+
+  * fix: correct the property RemainAfterExit
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Tue, 10 Sep 2019 19:02:19 +0800
+
+moxa-ublox-config-utils (1.0.1) unstable; urgency=medium
+
+  * fix: need more time for the module enter reset process
+  * fix: exit with proper value when configure failed
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Mon, 02 Sep 2019 19:37:07 +0800
+
+moxa-ublox-config-utils (1.0.0) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Thu, 22 Aug 2019 11:22:17 +0800
