@@ -1,3 +1,9 @@
+moxa-ublox-config-utils (1.1.0) unstable; urgency=medium
+
+  * feat: support to configure in mmcli way
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Thu, 05 Dec 2019 18:14:57 +0800
+
 moxa-ublox-config-utils (1.0.3) unstable; urgency=medium
 
   * fix: correct the dependency service name

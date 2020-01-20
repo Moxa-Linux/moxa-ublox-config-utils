@@ -1,0 +1,8 @@
+[Unit]
+Description=Ublox mode config tool
+
+[Service]
+ExecStart=/sbin/moxa-ublox-config-utils-mm %i
+Type=forking
+GuessMainPID=false
+RemainAfterExit=no

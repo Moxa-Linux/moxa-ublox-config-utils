@@ -1,0 +1,3 @@
+moxa-ublox-config-utils-mm /sbin
+moxa-ublox-config-utils.conf /etc/moxa-configs
+etc/* /etc
