@@ -4,7 +4,7 @@ USB_ETH_MODE=2
 # Router:1 Bridge:2
 NETWORKING_MODE=2
 WAITCOUNT=20
-CONFIG_PATH="/etc/moxa-configs/moxa-ublox-config-utils.conf"
+CONFIG_PATH=/etc/moxa-configs/moxa-ublox-config-utils.conf
 
 trap exit_func EXIT
 
@@ -17,8 +17,8 @@ exit_func() {
 	3)
 		echo "Invalid Module name tag for MMCLI"
 		;;
-	*)
-		;;
+	*) ;;
+
 	esac
 	exit ${ret}
 }
@@ -50,11 +50,10 @@ load_config() {
 
 at() {
 	local response=""
-	response="$(mmcli -m ${MODULE_NAME} --command="${1^^}")"
-	if [ $? -ne 0 ]; then
-		return 1
+	if response="$(mmcli -m "${MODULE_NAME}" --command="${1^^}")"; then
+		echo "${response}" | sed "s/response: \(.*\)/\1/g" | tr -d "'"
 	else
-		echo ${response} | sed "s/response: \(.*\)/\1/g" | tr -d "'"
+		return 1
 	fi
 }
 
@@ -112,7 +111,7 @@ switch_mode() {
 	fi
 
 	if [ ${need_reset} -eq 1 ]; then
-		mmcli -m ${MODULE_NAME} -r
+		mmcli -m "${MODULE_NAME}" -r
 	fi
 
 	sleep 5
@@ -124,7 +123,7 @@ wait_back() {
 	timeout=${WAITCOUNT}
 	while ((timeout--)); do
 		# First check the modem is scanned by mmcli
-		if mmcli -m "${MODULE_NAME}" >/dev/null 2>&1; then
+		if mmcli -m "${MODULE_NAME}" > /dev/null 2>&1; then
 			if at "AT"; then
 				break
 			fi
@@ -136,7 +135,7 @@ wait_back() {
 at_retry() {
 	local retry=3
 	local cmd="${1}"
-	while ((retry --)); do
+	while ((retry--)); do
 		if at "${cmd}"; then
 			return 0
 		fi
