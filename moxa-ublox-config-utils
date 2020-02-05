@@ -75,7 +75,7 @@ switch_mode() {
 		fi
 	fi
 
-	mode=$(cell_mgmt at "AT+UBMCONF?" | grep -i "^+UBMCONF:" | cut -d ' ' -f 2)
+	mode=$(cell_mgmt at "AT+UBMCONF?" | grep -i "^+UBMCONF:" | cut -d ' ' -f 2 | cut -d ',' -f 1)
 	case "${NETWORKING_MODE}" in
 	1)
 		s_mode="1"
