@@ -1,3 +1,10 @@
+moxa-ublox-config-utils (1.1.1) unstable; urgency=medium
+
+  * style: do shellcheck and shfmt
+  * fix: parsing failed on TOBY-L2 version 01
+
+ -- Ken CJ Chou <KenCJ.Chou@moxa.com>  Wed, 26 Feb 2020 14:27:04 +0800
+
 moxa-ublox-config-utils (1.1.0) unstable; urgency=medium
 
   * feat: support to configure in mmcli way
