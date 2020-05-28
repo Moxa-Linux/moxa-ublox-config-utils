@@ -1,3 +1,3 @@
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1141", ENV{ID_MM_PHYSDEV_UID} !="", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}="moxa-ublox-config-utils-mm@%E{ID_MM_PHYSDEV_UID}.service"
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1143", ENV{ID_MM_PHYSDEV_UID} !="", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}="moxa-ublox-config-utils-mm@%E{ID_MM_PHYSDEV_UID}.service"
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1146", ENV{ID_MM_PHYSDEV_UID} !="", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}="moxa-ublox-config-utils-mm@%E{ID_MM_PHYSDEV_UID}.service"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1141", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}="moxa-ublox-config-utils.service"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1143", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}="moxa-ublox-config-utils.service"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1146", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}="moxa-ublox-config-utils.service"
