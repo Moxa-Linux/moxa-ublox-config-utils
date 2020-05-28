@@ -1,3 +1,12 @@
+moxa-ublox-config-utils (1.2.0) stretch; urgency=medium
+
+  * feat: changed udev rules for cell_mgmt version
+  * add: etc/udev/rules.d/79-ublox-config-mm.rules
+  * debian: moxa-ublox-config-utils-mm: rename udev rule name
+  * debian: moxa-ublox-config-utils: use udev trigger
+
+ -- Remus Wu <remusty.wu@moxa.com>  Thu, 28 May 2020 18:32:23 +0800
+
 moxa-ublox-config-utils (1.1.1) unstable; urgency=medium
 
   * style: do shellcheck and shfmt
