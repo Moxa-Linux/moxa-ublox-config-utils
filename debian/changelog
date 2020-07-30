@@ -1,3 +1,9 @@
+moxa-ublox-config-utils (1.2.1) stretch; urgency=medium
+
+  * fix: using += to avoid to overwrite others' udev rule systemd_wants variable
+
+ -- Wes Huang <Wes.Huang@moxa.com>  Thu, 30 Jul 2020 03:18:09 -0400
+
 moxa-ublox-config-utils (1.2.0) stretch; urgency=medium
 
   * feat: changed udev rules for cell_mgmt version
