@@ -1,3 +1,13 @@
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1141", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils.service"
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1143", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils.service"
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1146", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils.service"
+ENV{MXP_MINIPCIE_SLOT_ID}=="", GOTO="ublox_configure_rules_oneslot"
+
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1141", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils@%E{MXP_MINIPCIE_SLOT_ID}.service"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1143", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils@%E{MXP_MINIPCIE_SLOT_ID}.service"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1146", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils@%E{MXP_MINIPCIE_SLOT_ID}.service"
+GOTO="ublox_configure_rules_end"
+
+LABEL="ublox_configure_rules_oneslot"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1141", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils@1.service"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1143", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils@1.service"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="1146", ENV{DEVTYPE}=="usb_device", TAG+="systemd", ENV{SYSTEMD_WANTS}+="moxa-ublox-config-utils@1.service"
+
+LABEL="ublox_configure_rules_end"
