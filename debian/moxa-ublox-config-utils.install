@@ -1,3 +1,4 @@
 moxa-ublox-config-utils /sbin
 moxa-ublox-config-utils.conf /etc/moxa-configs
+debian/moxa-ublox-config-utils@.service /lib/systemd/system
 etc/udev/rules.d/79-ublox-config.rules /etc/udev/rules.d
