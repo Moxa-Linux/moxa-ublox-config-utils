@@ -5,7 +5,7 @@ After=moxa-cellular-utils.service
 [Service]
 Type=forking
 WorkingDirectory=/home/moxa
-ExecStart=/sbin/moxa-ublox-config-utils
+ExecStart=/sbin/moxa-ublox-config-utils %i
 RemainAfterExit=yes
 
 [Install]
